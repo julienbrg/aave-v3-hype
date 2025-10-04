@@ -1,10 +1,10 @@
 {
-  "setUserEMode: enter eMode, 1 borrow, 1 supply": "135038",
-  "setUserEMode: leave eMode, 1 borrow, 1 supply": "107676",
-  "setUserEModeOnBehalfOf: enter eMode, 1 borrow, 1 supply": "137860",
-  "setUserEModeOnBehalfOf: leave eMode, 1 borrow, 1 supply": "110498",
-  "setUserUseReserveAsCollateral: disableCollateral, 1 supply": "46361",
-  "setUserUseReserveAsCollateral: enableCollateral, 1 supply": "80654",
-  "setUserUseReserveAsCollateralOnBehalfOf: disableCollateral, 1 supply": "49151",
-  "setUserUseReserveAsCollateralOnBehalfOf: enableCollateral, 1 supply": "83444"
+  "setUserEMode: enter eMode, 1 borrow, 1 supply": "43334",
+  "setUserEMode: leave eMode, 1 borrow, 1 supply": "19484",
+  "setUserEModeOnBehalfOf: enter eMode, 1 borrow, 1 supply": "43788",
+  "setUserEModeOnBehalfOf: leave eMode, 1 borrow, 1 supply": "19938",
+  "setUserUseReserveAsCollateral: disableCollateral, 1 supply": "13801",
+  "setUserUseReserveAsCollateral: enableCollateral, 1 supply": "28582",
+  "setUserUseReserveAsCollateralOnBehalfOf: disableCollateral, 1 supply": "14223",
+  "setUserUseReserveAsCollateralOnBehalfOf: enableCollateral, 1 supply": "29004"
 }

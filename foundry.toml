@@ -66,6 +66,7 @@ linea = "${RPC_LINEA}"
 sonic = "${RPC_SONIC}"
 soneium = "${RPC_SONEIUM}"
 zksync = "${RPC_ZKSYNC}"
+hyperevm_testnet = "${HYPEREVM_TESTNET_RPC_URL}"
 
 [etherscan]
 mainnet = { key = "${ETHERSCAN_API_KEY_MAINNET}", chainId = 1 }

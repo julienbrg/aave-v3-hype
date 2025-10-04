@@ -1,7 +1,7 @@
 # build and cache
-cache/
-out/
-zkout/
+# cache/
+# out/
+# zkout/
 
 # general
 .env
@@ -23,7 +23,7 @@ bun.lockb
 node_modules
 
 # ignore foundry deploy artifacts
-broadcast/
+# broadcast/
 
 .DS_Store
 
@@ -39,3 +39,4 @@ resource_errors.json
 _corpus/
 crytic-export/
 slither_results.json
+/zhankai

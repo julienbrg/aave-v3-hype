@@ -1,0 +1,717 @@
+{
+  "abi": [
+    {
+      "type": "constructor",
+      "inputs": [
+        {
+          "name": "provider",
+          "type": "address",
+          "internalType": "contract IPoolAddressesProvider"
+        },
+        {
+          "name": "assets",
+          "type": "address[]",
+          "internalType": "address[]"
+        },
+        {
+          "name": "sources",
+          "type": "address[]",
+          "internalType": "address[]"
+        },
+        {
+          "name": "fallbackOracle",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "baseCurrency",
+          "type": "address",
+          "internalType": "address"
+        },
+        {
+          "name": "baseCurrencyUnit",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "ADDRESSES_PROVIDER",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "contract IPoolAddressesProvider"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "BASE_CURRENCY",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "BASE_CURRENCY_UNIT",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAssetPrice",
+      "inputs": [
+        {
+          "name": "asset",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256",
+          "internalType": "uint256"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getAssetsPrices",
+      "inputs": [
+        {
+          "name": "assets",
+          "type": "address[]",
+          "internalType": "address[]"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256[]",
+          "internalType": "uint256[]"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getFallbackOracle",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "getSourceOfAsset",
+      "inputs": [
+        {
+          "name": "asset",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "stateMutability": "view"
+    },
+    {
+      "type": "function",
+      "name": "setAssetSources",
+      "inputs": [
+        {
+          "name": "assets",
+          "type": "address[]",
+          "internalType": "address[]"
+        },
+        {
+          "name": "sources",
+          "type": "address[]",
+          "internalType": "address[]"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "function",
+      "name": "setFallbackOracle",
+      "inputs": [
+        {
+          "name": "fallbackOracle",
+          "type": "address",
+          "internalType": "address"
+        }
+      ],
+      "outputs": [],
+      "stateMutability": "nonpayable"
+    },
+    {
+      "type": "event",
+      "name": "AssetSourceUpdated",
+      "inputs": [
+        {
+          "name": "asset",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "source",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "BaseCurrencySet",
+      "inputs": [
+        {
+          "name": "baseCurrency",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        },
+        {
+          "name": "baseCurrencyUnit",
+          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "event",
+      "name": "FallbackOracleUpdated",
+      "inputs": [
+        {
+          "name": "fallbackOracle",
+          "type": "address",
+          "indexed": true,
+          "internalType": "address"
+        }
+      ],
+      "anonymous": false
+    },
+    {
+      "type": "error",
+      "name": "CallerNotAssetListingOrPoolAdmin",
+      "inputs": []
+    },
+    {
+      "type": "error",
+      "name": "InconsistentParamsLength",
+      "inputs": []
+    }
+  ],
+  "bytecode": {
+    "object": "0x60e060405234801561000f575f5ffd5b50604051610d86380380610d8683398101604081905261002e916102eb565b6001600160a01b038616608052610044836100a0565b61004e85856100e9565b6001600160a01b03821660a081905260c08290526040518281527fe27c4c1372396a3d15a9922f74f9dfc7c72b1ad6d63868470787249c356454c19060200160405180910390a25050505050506103a6565b600180546001600160a01b0319166001600160a01b0383169081179091556040517fce7a780d33665b1ea097af5f155e3821b809ecbaa839d3b33aa83ba28168cefb905f90a250565b805182511461010b57604051630d10f63b60e01b815260040160405180910390fd5b5f5b82518110156102085781818151811061012857610128610392565b60200260200101515f5f85848151811061014457610144610392565b60200260200101516001600160a01b03166001600160a01b031681526020019081526020015f205f6101000a8154816001600160a01b0302191690836001600160a01b031602179055508181815181106101a0576101a0610392565b60200260200101516001600160a01b03168382815181106101c3576101c3610392565b60200260200101516001600160a01b03167f22c5b7b2d8561d39f7f210b6b326a1aa69f15311163082308ac4877db6339dc160405160405180910390a360010161010d565b505050565b6001600160a01b0381168114610221575f5ffd5b50565b634e487b7160e01b5f52604160045260245ffd5b80516102438161020d565b919050565b5f82601f830112610257575f5ffd5b81516001600160401b0381111561027057610270610224565b604051600582901b90603f8201601f191681016001600160401b038111828210171561029e5761029e610224565b6040529182526020818501810192908101868411156102bb575f5ffd5b6020860192505b838310156102e1576102d383610238565b8152602092830192016102c2565b5095945050505050565b5f5f5f5f5f5f60c08789031215610300575f5ffd5b865161030b8161020d565b60208801519096506001600160401b03811115610326575f5ffd5b61033289828a01610248565b604089015190965090506001600160401b0381111561034f575f5ffd5b61035b89828a01610248565b945050606087015161036c8161020d565b608088015190935061037d8161020d565b8092505060a087015190509295509295509295565b634e487b7160e01b5f52603260045260245ffd5b60805160a05160c0516109a26103e45f395f8181610103015261034d01525f81816101a9015261032201525f8181609901526104dc01526109a25ff3fe608060405234801561000f575f5ffd5b5060043610610090575f3560e01c806392bf2be01161006357806392bf2be0146101335780639d23d9f21461015e578063abfd53101461017e578063b3596f0714610191578063e19f4700146101a4575f5ffd5b80630542975c14610094578063170aee73146100d85780636210308c146100ed5780638c89b64f146100fe575b5f5ffd5b6100bb7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100eb6100e63660046107cc565b6101cb565b005b6001546001600160a01b03166100bb565b6101257f000000000000000000000000000000000000000000000000000000000000000081565b6040519081526020016100cf565b6100bb6101413660046107cc565b6001600160a01b039081165f908152602081905260409020541690565b61017161016c36600461082f565b6101df565b6040516100cf919061086e565b6100eb61018c3660046108b0565b610288565b61012561019f3660046107cc565b610301565b6100bb7f000000000000000000000000000000000000000000000000000000000000000081565b6101d36104d9565b6101dc8161064b565b50565b60605f8267ffffffffffffffff8111156101fb576101fb61091c565b604051908082528060200260200182016040528015610224578160200160208202803683370190505b5090505f5b838110156102805761025b85858381811061024657610246610930565b905060200201602081019061019f91906107cc565b82828151811061026d5761026d610930565b6020908102919091010152600101610229565b509392505050565b6102906104d9565b6102fb8484808060200260200160405190810160405280939291908181526020018383602002808284375f92019190915250506040805160208088028281018201909352878252909350879250869182918501908490808284375f9201919091525061069492505050565b50505050565b6001600160a01b038082165f818152602081905260408120549092908116917f0000000000000000000000000000000000000000000000000000000000000000909116900361037257507f000000000000000000000000000000000000000000000000000000000000000092915050565b6001600160a01b0381166103f35760015460405163b3596f0760e01b81526001600160a01b0385811660048301529091169063b3596f0790602401602060405180830381865afa1580156103c8573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906103ec9190610944565b9392505050565b5f816001600160a01b03166350d25bcd6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610430573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104549190610944565b90505f811315610465579392505050565b60015460405163b3596f0760e01b81526001600160a01b0386811660048301529091169063b3596f0790602401602060405180830381865afa1580156104ad573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104d19190610944565b949350505050565b5f7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663707cd7166040518163ffffffff1660e01b8152600401602060405180830381865afa158015610536573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061055a919061095b565b604051629f719760e51b81523360048201529091506001600160a01b038216906313ee32e090602401602060405180830381865afa15801561059e573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906105c29190610976565b8061062e5750604051637be53ca160e01b81523360048201526001600160a01b03821690637be53ca190602401602060405180830381865afa15801561060a573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061062e9190610976565b6101dc57604051630e8e140f60e21b815260040160405180910390fd5b600180546001600160a01b0319166001600160a01b0383169081179091556040517fce7a780d33665b1ea097af5f155e3821b809ecbaa839d3b33aa83ba28168cefb905f90a250565b80518251146106b657604051630d10f63b60e01b815260040160405180910390fd5b5f5b82518110156107b3578181815181106106d3576106d3610930565b60200260200101515f5f8584815181106106ef576106ef610930565b60200260200101516001600160a01b03166001600160a01b031681526020019081526020015f205f6101000a8154816001600160a01b0302191690836001600160a01b0316021790555081818151811061074b5761074b610930565b60200260200101516001600160a01b031683828151811061076e5761076e610930565b60200260200101516001600160a01b03167f22c5b7b2d8561d39f7f210b6b326a1aa69f15311163082308ac4877db6339dc160405160405180910390a36001016106b8565b505050565b6001600160a01b03811681146101dc575f5ffd5b5f602082840312156107dc575f5ffd5b81356103ec816107b8565b5f5f83601f8401126107f7575f5ffd5b50813567ffffffffffffffff81111561080e575f5ffd5b6020830191508360208260051b8501011115610828575f5ffd5b9250929050565b5f5f60208385031215610840575f5ffd5b823567ffffffffffffffff811115610856575f5ffd5b610862858286016107e7565b90969095509350505050565b602080825282518282018190525f918401906040840190835b818110156108a5578351835260209384019390920191600101610887565b509095945050505050565b5f5f5f5f604085870312156108c3575f5ffd5b843567ffffffffffffffff8111156108d9575f5ffd5b6108e5878288016107e7565b909550935050602085013567ffffffffffffffff811115610904575f5ffd5b610910878288016107e7565b95989497509550505050565b634e487b7160e01b5f52604160045260245ffd5b634e487b7160e01b5f52603260045260245ffd5b5f60208284031215610954575f5ffd5b5051919050565b5f6020828403121561096b575f5ffd5b81516103ec816107b8565b5f60208284031215610986575f5ffd5b815180151581146103ec575f5ffdfea164736f6c634300081b000a",
+    "sourceMap": "819:4238:180:-:0;;;1892:451;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;-1:-1:-1;;;;;2094:29:180;;;;2129:34;2148:14;2129:18;:34::i;:::-;2169;2187:6;2195:7;2169:17;:34::i;:::-;-1:-1:-1;;;;;2209:28:180;;;;;;2243:37;;;;2291:47;;2723:25:478;;;2291:47:180;;2711:2:478;2696:18;2291:47:180;;;;;;;1892:451;;;;;;819:4238;;3419:172;3486:15;:52;;-1:-1:-1;;;;;;3486:52:180;-1:-1:-1;;;;;3486:52:180;;;;;;;;3549:37;;;;-1:-1:-1;;3549:37:180;3419:172;:::o;2934:349::-;3052:7;:14;3035:6;:13;:31;3027:75;;;;-1:-1:-1;;;3027:75:180;;;;;;;;;;;;3113:9;3108:171;3132:6;:13;3128:1;:17;3108:171;;;3207:7;3215:1;3207:10;;;;;;;;:::i;:::-;;;;;;;3160:13;:24;3174:6;3181:1;3174:9;;;;;;;;:::i;:::-;;;;;;;-1:-1:-1;;;;;3160:24:180;-1:-1:-1;;;;;3160:24:180;;;;;;;;;;;;;:58;;;;;-1:-1:-1;;;;;3160:58:180;;;;;-1:-1:-1;;;;;3160:58:180;;;;;;3261:7;3269:1;3261:10;;;;;;;;:::i;:::-;;;;;;;-1:-1:-1;;;;;3231:41:180;3250:6;3257:1;3250:9;;;;;;;;:::i;:::-;;;;;;;-1:-1:-1;;;;;3231:41:180;;;;;;;;;;;3147:3;;3108:171;;;;2934:349;;:::o;14:155:478:-;-1:-1:-1;;;;;113:31:478;;103:42;;93:70;;159:1;156;149:12;93:70;14:155;:::o;174:127::-;235:10;230:3;226:20;223:1;216:31;266:4;263:1;256:15;290:4;287:1;280:15;306:162;385:13;;407:55;385:13;407:55;:::i;:::-;306:162;;;:::o;473:921::-;538:5;591:3;584:4;576:6;572:17;568:27;558:55;;609:1;606;599:12;558:55;636:13;;-1:-1:-1;;;;;661:30:478;;658:56;;;694:18;;:::i;:::-;776:2;770:9;737:1;733:14;;;;830:2;822:11;;-1:-1:-1;;818:25:478;806:38;;-1:-1:-1;;;;;859:34:478;;895:22;;;856:62;853:88;;;921:18;;:::i;:::-;957:2;950:22;1007;;;1057:4;1089:15;;;1085:26;;;1007:22;1045:17;;1123:15;;;1120:35;;;1151:1;1148;1141:12;1120:35;1187:4;1179:6;1175:17;1164:28;;1201:163;1217:6;1212:3;1209:15;1201:163;;;1285:34;1315:3;1285:34;:::i;:::-;1273:47;;1349:4;1234:14;;;;1340;1201:163;;;-1:-1:-1;1382:6:478;473:921;-1:-1:-1;;;;;473:921:478:o;1399:1173::-;1596:6;1604;1612;1620;1628;1636;1689:3;1677:9;1668:7;1664:23;1660:33;1657:53;;;1706:1;1703;1696:12;1657:53;1738:9;1732:16;1757:55;1806:5;1757:55;:::i;:::-;1880:2;1865:18;;1859:25;1831:5;;-1:-1:-1;;;;;;1896:30:478;;1893:50;;;1939:1;1936;1929:12;1893:50;1962:72;2026:7;2017:6;2006:9;2002:22;1962:72;:::i;:::-;2080:2;2065:18;;2059:25;1952:82;;-1:-1:-1;2059:25:478;-1:-1:-1;;;;;;2096:32:478;;2093:52;;;2141:1;2138;2131:12;2093:52;2164:74;2230:7;2219:8;2208:9;2204:24;2164:74;:::i;:::-;2154:84;;;2283:2;2272:9;2268:18;2262:25;2296:57;2345:7;2296:57;:::i;:::-;2424:3;2409:19;;2403:26;2372:7;;-1:-1:-1;2438:57:478;2403:26;2438:57;:::i;:::-;2514:7;2504:17;;;2561:3;2550:9;2546:19;2540:26;2530:36;;1399:1173;;;;;;;;:::o;2759:127::-;2820:10;2815:3;2811:20;2808:1;2801:31;2851:4;2848:1;2841:15;2875:4;2872:1;2865:15;2759:127;819:4238:180;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x608060405234801561000f575f5ffd5b5060043610610090575f3560e01c806392bf2be01161006357806392bf2be0146101335780639d23d9f21461015e578063abfd53101461017e578063b3596f0714610191578063e19f4700146101a4575f5ffd5b80630542975c14610094578063170aee73146100d85780636210308c146100ed5780638c89b64f146100fe575b5f5ffd5b6100bb7f000000000000000000000000000000000000000000000000000000000000000081565b6040516001600160a01b0390911681526020015b60405180910390f35b6100eb6100e63660046107cc565b6101cb565b005b6001546001600160a01b03166100bb565b6101257f000000000000000000000000000000000000000000000000000000000000000081565b6040519081526020016100cf565b6100bb6101413660046107cc565b6001600160a01b039081165f908152602081905260409020541690565b61017161016c36600461082f565b6101df565b6040516100cf919061086e565b6100eb61018c3660046108b0565b610288565b61012561019f3660046107cc565b610301565b6100bb7f000000000000000000000000000000000000000000000000000000000000000081565b6101d36104d9565b6101dc8161064b565b50565b60605f8267ffffffffffffffff8111156101fb576101fb61091c565b604051908082528060200260200182016040528015610224578160200160208202803683370190505b5090505f5b838110156102805761025b85858381811061024657610246610930565b905060200201602081019061019f91906107cc565b82828151811061026d5761026d610930565b6020908102919091010152600101610229565b509392505050565b6102906104d9565b6102fb8484808060200260200160405190810160405280939291908181526020018383602002808284375f92019190915250506040805160208088028281018201909352878252909350879250869182918501908490808284375f9201919091525061069492505050565b50505050565b6001600160a01b038082165f818152602081905260408120549092908116917f0000000000000000000000000000000000000000000000000000000000000000909116900361037257507f000000000000000000000000000000000000000000000000000000000000000092915050565b6001600160a01b0381166103f35760015460405163b3596f0760e01b81526001600160a01b0385811660048301529091169063b3596f0790602401602060405180830381865afa1580156103c8573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906103ec9190610944565b9392505050565b5f816001600160a01b03166350d25bcd6040518163ffffffff1660e01b8152600401602060405180830381865afa158015610430573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104549190610944565b90505f811315610465579392505050565b60015460405163b3596f0760e01b81526001600160a01b0386811660048301529091169063b3596f0790602401602060405180830381865afa1580156104ad573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906104d19190610944565b949350505050565b5f7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663707cd7166040518163ffffffff1660e01b8152600401602060405180830381865afa158015610536573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061055a919061095b565b604051629f719760e51b81523360048201529091506001600160a01b038216906313ee32e090602401602060405180830381865afa15801561059e573d5f5f3e3d5ffd5b505050506040513d601f19601f820116820180604052508101906105c29190610976565b8061062e5750604051637be53ca160e01b81523360048201526001600160a01b03821690637be53ca190602401602060405180830381865afa15801561060a573d5f5f3e3d5ffd5b505050506040513d601f19601f8201168201806040525081019061062e9190610976565b6101dc57604051630e8e140f60e21b815260040160405180910390fd5b600180546001600160a01b0319166001600160a01b0383169081179091556040517fce7a780d33665b1ea097af5f155e3821b809ecbaa839d3b33aa83ba28168cefb905f90a250565b80518251146106b657604051630d10f63b60e01b815260040160405180910390fd5b5f5b82518110156107b3578181815181106106d3576106d3610930565b60200260200101515f5f8584815181106106ef576106ef610930565b60200260200101516001600160a01b03166001600160a01b031681526020019081526020015f205f6101000a8154816001600160a01b0302191690836001600160a01b0316021790555081818151811061074b5761074b610930565b60200260200101516001600160a01b031683828151811061076e5761076e610930565b60200260200101516001600160a01b03167f22c5b7b2d8561d39f7f210b6b326a1aa69f15311163082308ac4877db6339dc160405160405180910390a36001016106b8565b505050565b6001600160a01b03811681146101dc575f5ffd5b5f602082840312156107dc575f5ffd5b81356103ec816107b8565b5f5f83601f8401126107f7575f5ffd5b50813567ffffffffffffffff81111561080e575f5ffd5b6020830191508360208260051b8501011115610828575f5ffd5b9250929050565b5f5f60208385031215610840575f5ffd5b823567ffffffffffffffff811115610856575f5ffd5b610862858286016107e7565b90969095509350505050565b602080825282518282018190525f918401906040840190835b818110156108a5578351835260209384019390920191600101610887565b509095945050505050565b5f5f5f5f604085870312156108c3575f5ffd5b843567ffffffffffffffff8111156108d9575f5ffd5b6108e5878288016107e7565b909550935050602085013567ffffffffffffffff811115610904575f5ffd5b610910878288016107e7565b95989497509550505050565b634e487b7160e01b5f52604160045260245ffd5b634e487b7160e01b5f52603260045260245ffd5b5f60208284031215610954575f5ffd5b5051919050565b5f6020828403121561096b575f5ffd5b81516103ec816107b8565b5f60208284031215610986575f5ffd5b815180151581146103ec575f5ffdfea164736f6c634300081b000a",
+    "sourceMap": "819:4238:180:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;858:58;;;;;;;;-1:-1:-1;;;;;210:32:478;;;192:51;;180:2;165:18;858:58:180;;;;;;;;2595:151;;;;;;:::i;:::-;;:::i;:::-;;4654:103;4736:15;;-1:-1:-1;;;;;4736:15:180;4654:103;;1139:52;;;;;;;;996:25:478;;;984:2;969:18;1139:52:180;850:177:478;4491:129:180;;;;;;:::i;:::-;-1:-1:-1;;;;;4594:20:180;;;4564:7;4594:20;;;;;;;;;;;;;4491:129;4163:294;;;;;;:::i;:::-;;:::i;:::-;;;;;;;:::i;2377:184::-;;;;;;:::i;:::-;;:::i;3632:497::-;;;;;;:::i;:::-;;:::i;1088:47::-;;;;;2595:151;1341:31;:29;:31::i;:::-;2707:34:::1;2726:14;2707:18;:34::i;:::-;2595:151:::0;:::o;4163:294::-;4255:16;4279:23;4319:6;4305:28;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;4305:28:180;-1:-1:-1;4279:54:180;-1:-1:-1;4344:9:180;4339:95;4359:17;;;4339:95;;;4403:24;4417:6;;4424:1;4417:9;;;;;;;:::i;:::-;;;;;;;;;;;;;;:::i;4403:24::-;4391:6;4398:1;4391:9;;;;;;;;:::i;:::-;;;;;;;;;;:36;4378:3;;4339:95;;;-1:-1:-1;4446:6:180;4163:294;-1:-1:-1;;;4163:294:180:o;2377:184::-;1341:31;:29;:31::i;:::-;2522:34:::1;2540:6;;2522:34;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;::::0;::::1;::::0;;;;-1:-1:-1;;2522:34:180::1;::::0;;::::1;::::0;;::::1;::::0;;;;;;;;;;;;;-1:-1:-1;2548:7:180;;-1:-1:-1;2548:7:180;;;;2522:34;::::1;::::0;2548:7;;2522:34;2548:7;2522:34;::::1;;::::0;::::1;::::0;;;;-1:-1:-1;2522:17:180::1;::::0;-1:-1:-1;;;2522:34:180:i:1;:::-;2377:184:::0;;;;:::o;3632:497::-;-1:-1:-1;;;;;3744:20:180;;;3700:7;3744:20;;;;;;;;;;;3700:7;;3744:20;;;;3784:13;3775:22;;;;;3771:354;;-1:-1:-1;3814:18:180;;3632:497;-1:-1:-1;;3632:497:180:o;3771:354::-;-1:-1:-1;;;;;3849:29:180;;3845:280;;3895:15;;:36;;-1:-1:-1;;;3895:36:180;;-1:-1:-1;;;;;210:32:478;;;3895:36:180;;;192:51:478;3895:15:180;;;;:29;;165:18:478;;3895:36:180;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;3888:43;3632:497;-1:-1:-1;;;3632:497:180:o;3845:280::-;3952:12;3967:6;-1:-1:-1;;;;;3967:19:180;;:21;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;3952:36;;4008:1;4000:5;:9;3996:123;;;4036:5;3632:497;-1:-1:-1;;;3632:497:180:o;3996:123::-;4074:15;;:36;;-1:-1:-1;;;4074:36:180;;-1:-1:-1;;;;;210:32:478;;;4074:36:180;;;192:51:478;4074:15:180;;;;:29;;165:18:478;;4074:36:180;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;4067:43;3632:497;-1:-1:-1;;;;3632:497:180:o;4761:294::-;4822:22;4859:18;-1:-1:-1;;;;;4859:32:180;;:34;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;4915:42;;-1:-1:-1;;;4915:42:180;;4946:10;4915:42;;;192:51:478;4822:72:180;;-1:-1:-1;;;;;;4915:30:180;;;;;165:18:478;;4915:42:180;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;:80;;;-1:-1:-1;4961:34:180;;-1:-1:-1;;;4961:34:180;;4984:10;4961:34;;;192:51:478;-1:-1:-1;;;;;4961:22:180;;;;;165:18:478;;4961:34:180;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;4900:150;;;;-1:-1:-1;;;4900:150:180;;;;;;;;;;;3419:172;3486:15;:52;;-1:-1:-1;;;;;;3486:52:180;-1:-1:-1;;;;;3486:52:180;;;;;;;;3549:37;;;;-1:-1:-1;;3549:37:180;3419:172;:::o;2934:349::-;3052:7;:14;3035:6;:13;:31;3027:75;;;;-1:-1:-1;;;3027:75:180;;;;;;;;;;;;3113:9;3108:171;3132:6;:13;3128:1;:17;3108:171;;;3207:7;3215:1;3207:10;;;;;;;;:::i;:::-;;;;;;;3160:13;:24;3174:6;3181:1;3174:9;;;;;;;;:::i;:::-;;;;;;;-1:-1:-1;;;;;3160:24:180;-1:-1:-1;;;;;3160:24:180;;;;;;;;;;;;;:58;;;;;-1:-1:-1;;;;;3160:58:180;;;;;-1:-1:-1;;;;;3160:58:180;;;;;;3261:7;3269:1;3261:10;;;;;;;;:::i;:::-;;;;;;;-1:-1:-1;;;;;3231:41:180;3250:6;3257:1;3250:9;;;;;;;;:::i;:::-;;;;;;;-1:-1:-1;;;;;3231:41:180;;;;;;;;;;;3147:3;;3108:171;;;;2934:349;;:::o;254:131:478:-;-1:-1:-1;;;;;329:31:478;;319:42;;309:70;;375:1;372;365:12;390:247;449:6;502:2;490:9;481:7;477:23;473:32;470:52;;;518:1;515;508:12;470:52;557:9;544:23;576:31;601:5;576:31;:::i;1032:367::-;1095:8;1105:6;1159:3;1152:4;1144:6;1140:17;1136:27;1126:55;;1177:1;1174;1167:12;1126:55;-1:-1:-1;1200:20:478;;1243:18;1232:30;;1229:50;;;1275:1;1272;1265:12;1229:50;1312:4;1304:6;1300:17;1288:29;;1372:3;1365:4;1355:6;1352:1;1348:14;1340:6;1336:27;1332:38;1329:47;1326:67;;;1389:1;1386;1379:12;1326:67;1032:367;;;;;:::o;1404:437::-;1490:6;1498;1551:2;1539:9;1530:7;1526:23;1522:32;1519:52;;;1567:1;1564;1557:12;1519:52;1607:9;1594:23;1640:18;1632:6;1629:30;1626:50;;;1672:1;1669;1662:12;1626:50;1711:70;1773:7;1764:6;1753:9;1749:22;1711:70;:::i;:::-;1800:8;;1685:96;;-1:-1:-1;1404:437:478;-1:-1:-1;;;;1404:437:478:o;1846:611::-;2036:2;2048:21;;;2118:13;;2021:18;;;2140:22;;;1988:4;;2219:15;;;2193:2;2178:18;;;1988:4;2262:169;2276:6;2273:1;2270:13;2262:169;;;2337:13;;2325:26;;2380:2;2406:15;;;;2371:12;;;;2298:1;2291:9;2262:169;;;-1:-1:-1;2448:3:478;;1846:611;-1:-1:-1;;;;;1846:611:478:o;2462:768::-;2584:6;2592;2600;2608;2661:2;2649:9;2640:7;2636:23;2632:32;2629:52;;;2677:1;2674;2667:12;2629:52;2717:9;2704:23;2750:18;2742:6;2739:30;2736:50;;;2782:1;2779;2772:12;2736:50;2821:70;2883:7;2874:6;2863:9;2859:22;2821:70;:::i;:::-;2910:8;;-1:-1:-1;2795:96:478;-1:-1:-1;;2998:2:478;2983:18;;2970:32;3027:18;3014:32;;3011:52;;;3059:1;3056;3049:12;3011:52;3098:72;3162:7;3151:8;3140:9;3136:24;3098:72;:::i;:::-;2462:768;;;;-1:-1:-1;3189:8:478;-1:-1:-1;;;;2462:768:478:o;3235:127::-;3296:10;3291:3;3287:20;3284:1;3277:31;3327:4;3324:1;3317:15;3351:4;3348:1;3341:15;3367:127;3428:10;3423:3;3419:20;3416:1;3409:31;3459:4;3456:1;3449:15;3483:4;3480:1;3473:15;3499:184;3569:6;3622:2;3610:9;3601:7;3597:23;3593:32;3590:52;;;3638:1;3635;3628:12;3590:52;-1:-1:-1;3661:16:478;;3499:184;-1:-1:-1;3499:184:478:o;3876:251::-;3946:6;3999:2;3987:9;3978:7;3974:23;3970:32;3967:52;;;4015:1;4012;4005:12;3967:52;4047:9;4041:16;4066:31;4091:5;4066:31;:::i;4132:277::-;4199:6;4252:2;4240:9;4231:7;4227:23;4223:32;4220:52;;;4268:1;4265;4258:12;4220:52;4300:9;4294:16;4353:5;4346:13;4339:21;4332:5;4329:32;4319:60;;4375:1;4372;4365:12",
+    "linkReferences": {},
+    "immutableReferences": {
+      "74665": [
+        {
+          "start": 153,
+          "length": 32
+        },
+        {
+          "start": 1244,
+          "length": 32
+        }
+      ],
+      "74676": [
+        {
+          "start": 425,
+          "length": 32
+        },
+        {
+          "start": 802,
+          "length": 32
+        }
+      ],
+      "74679": [
+        {
+          "start": 259,
+          "length": 32
+        },
+        {
+          "start": 845,
+          "length": 32
+        }
+      ]
+    }
+  },
+  "methodIdentifiers": {
+    "ADDRESSES_PROVIDER()": "0542975c",
+    "BASE_CURRENCY()": "e19f4700",
+    "BASE_CURRENCY_UNIT()": "8c89b64f",
+    "getAssetPrice(address)": "b3596f07",
+    "getAssetsPrices(address[])": "9d23d9f2",
+    "getFallbackOracle()": "6210308c",
+    "getSourceOfAsset(address)": "92bf2be0",
+    "setAssetSources(address[],address[])": "abfd5310",
+    "setFallbackOracle(address)": "170aee73"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.27+commit.40a35a09\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IPoolAddressesProvider\",\"name\":\"provider\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"assets\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"sources\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"fallbackOracle\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"baseCurrency\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"baseCurrencyUnit\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"CallerNotAssetListingOrPoolAdmin\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InconsistentParamsLength\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"source\",\"type\":\"address\"}],\"name\":\"AssetSourceUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"baseCurrency\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"baseCurrencyUnit\",\"type\":\"uint256\"}],\"name\":\"BaseCurrencySet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"fallbackOracle\",\"type\":\"address\"}],\"name\":\"FallbackOracleUpdated\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"ADDRESSES_PROVIDER\",\"outputs\":[{\"internalType\":\"contract IPoolAddressesProvider\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"BASE_CURRENCY\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"BASE_CURRENCY_UNIT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"}],\"name\":\"getAssetPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"assets\",\"type\":\"address[]\"}],\"name\":\"getAssetsPrices\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFallbackOracle\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"asset\",\"type\":\"address\"}],\"name\":\"getSourceOfAsset\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"assets\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"sources\",\"type\":\"address[]\"}],\"name\":\"setAssetSources\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fallbackOracle\",\"type\":\"address\"}],\"name\":\"setFallbackOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Aave\",\"events\":{\"AssetSourceUpdated(address,address)\":{\"details\":\"Emitted after the price source of an asset is updated\",\"params\":{\"asset\":\"The address of the asset\",\"source\":\"The price source of the asset\"}},\"BaseCurrencySet(address,uint256)\":{\"details\":\"Emitted after the base currency is set\",\"params\":{\"baseCurrency\":\"The base currency of used for price quotes\",\"baseCurrencyUnit\":\"The unit of the base currency\"}},\"FallbackOracleUpdated(address)\":{\"details\":\"Emitted after the address of fallback oracle is updated\",\"params\":{\"fallbackOracle\":\"The address of the fallback oracle\"}}},\"kind\":\"dev\",\"methods\":{\"constructor\":{\"params\":{\"assets\":\"The addresses of the assets\",\"baseCurrency\":\"The base currency used for the price quotes. If USD is used, base currency is 0x0\",\"baseCurrencyUnit\":\"The unit of the base currency\",\"fallbackOracle\":\"The address of the fallback oracle to use if the data of an        aggregator is not consistent\",\"provider\":\"The address of the new PoolAddressesProvider\",\"sources\":\"The address of the source of each asset\"}},\"getAssetPrice(address)\":{\"params\":{\"asset\":\"The address of the asset\"},\"returns\":{\"_0\":\"The price of the asset\"}},\"getAssetsPrices(address[])\":{\"params\":{\"assets\":\"The list of assets addresses\"},\"returns\":{\"_0\":\"The prices of the given assets\"}},\"getFallbackOracle()\":{\"returns\":{\"_0\":\"The address of the fallback oracle\"}},\"getSourceOfAsset(address)\":{\"params\":{\"asset\":\"The address of the asset\"},\"returns\":{\"_0\":\"The address of the source\"}},\"setAssetSources(address[],address[])\":{\"params\":{\"assets\":\"The addresses of the assets\",\"sources\":\"The addresses of the price sources\"}},\"setFallbackOracle(address)\":{\"params\":{\"fallbackOracle\":\"The address of the fallback oracle\"}}},\"stateVariables\":{\"ADDRESSES_PROVIDER\":{\"return\":\"The address of the PoolAddressesProvider contract\",\"returns\":{\"_0\":\"The address of the PoolAddressesProvider contract\"}},\"BASE_CURRENCY\":{\"details\":\"Address 0x0 is reserved for USD as base currency.\",\"return\":\"Returns the base currency address.\",\"returns\":{\"_0\":\"Returns the base currency address.\"}},\"BASE_CURRENCY_UNIT\":{\"details\":\"1 ether for ETH, 1e8 for USD.\",\"return\":\"Returns the base currency unit.\",\"returns\":{\"_0\":\"Returns the base currency unit.\"}}},\"title\":\"AaveOracle\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"ADDRESSES_PROVIDER()\":{\"notice\":\"Returns the PoolAddressesProvider\"},\"BASE_CURRENCY()\":{\"notice\":\"Returns the base currency address\"},\"BASE_CURRENCY_UNIT()\":{\"notice\":\"Returns the base currency unit\"},\"constructor\":{\"notice\":\"Constructor\"},\"getAssetPrice(address)\":{\"notice\":\"Returns the asset price in the base currency\"},\"getAssetsPrices(address[])\":{\"notice\":\"Returns a list of prices from a list of assets addresses\"},\"getFallbackOracle()\":{\"notice\":\"Returns the address of the fallback oracle\"},\"getSourceOfAsset(address)\":{\"notice\":\"Returns the address of the source for an asset address\"},\"setAssetSources(address[],address[])\":{\"notice\":\"Sets or replaces price sources of assets\"},\"setFallbackOracle(address)\":{\"notice\":\"Sets the fallback oracle\"}},\"notice\":\"Contract to get asset prices, manage price sources and update the fallback oracle - Use of Chainlink Aggregators as first source of price - If the returned price by a Chainlink aggregator is <= 0, the call is forwarded to a fallback oracle - Owned by the Aave governance\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/contracts/misc/AaveOracle.sol\":\"AaveOracle\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"none\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/contracts-upgradeable/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/contracts/\",\":@openzeppelin/contracts/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":erc4626-tests/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":halmos-cheatcodes/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/halmos-cheatcodes/src/\",\":openzeppelin-contracts-upgradeable/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/\",\":openzeppelin-contracts/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/\",\":solidity-utils/=lib/solidity-utils/src/\"]},\"sources\":{\"src/contracts/dependencies/chainlink/AggregatorInterface.sol\":{\"keccak256\":\"0x67dc6f45d43e54daf13d8bdad0c9e05564cbeb527d6b29c0a2f1a53380ca381f\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1b4efe52963096f8bcbcf497c6180ccf25f99ab42619363454191cb92aef6d49\",\"dweb:/ipfs/QmQbSKkLnjeCyK44hXRzJB8nSidKSCEys2kgPB34M3gjHk\"]},\"src/contracts/interfaces/IACLManager.sol\":{\"keccak256\":\"0x058bc8b18b4483348a4909273f2c7be9dbd08e5c7f30385c44d85fc08c3f54a9\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://099273a63a4b5c08416b7c7538b7c1074ab230d31c0ed890b7ec00c584401d70\",\"dweb:/ipfs/QmY7jMLXvUW75pFbAG5MZ3GwRCXi4YZ5QrYWmjeMt1gw9j\"]},\"src/contracts/interfaces/IAaveOracle.sol\":{\"keccak256\":\"0x21fce44dd19005ed45d193584a0bbd117a6772ef142e25da7f35ba03409b8554\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8ae01ec904034766b0cc948001a9c84d27f8aa602f96a5078f6c3bdb13deeece\",\"dweb:/ipfs/Qmb8dTh6M3GUAZhGxB6ADGk4mAumHQiNvs7YNUEhaRdHzo\"]},\"src/contracts/interfaces/IPoolAddressesProvider.sol\":{\"keccak256\":\"0xa60921cf54e91ca8db038effeffc876089b2e72dbf01d68a10ff461770d345e5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0de2fd03bf5cd6ae8718a486e5d615c67b260d0608b9fb7076888a4bfaa0e4b4\",\"dweb:/ipfs/QmXpdmxMugyJcBFAGJEruB78bkkuTwrH9esYRaS6wiQoMs\"]},\"src/contracts/interfaces/IPriceOracleGetter.sol\":{\"keccak256\":\"0x7c409a9a55246dd005a4c5266b54d9ee5fe069c4ff4e6b0c267aa7ec83242e5a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://598be4a4d1bf411105417cdfa0698dd155442dda1463f730277aa73fcd2bfb04\",\"dweb:/ipfs/QmcWuoqk9LMW6pawDCkwLTgPesyVzQ6whp761wht1yZdg8\"]},\"src/contracts/misc/AaveOracle.sol\":{\"keccak256\":\"0x19493b216ca3b6ffa2f3468c23671fedfc78800bc18cde3d09fee7693f144946\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3b4b0ce6d10d5be578e1fa7251df0e654bbb6d26111a229c2803c1b5824fcc4\",\"dweb:/ipfs/QmfJr2cQsNGaX7nbCb3uV8r3bgtZtKQs5VzmiyuaErm6xk\"]},\"src/contracts/protocol/libraries/helpers/Errors.sol\":{\"keccak256\":\"0x6d522a061535598e9867fdff57fce2c0f062698e1547b54b1de8bc17f6276482\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fd331ff3e22cc617d5c0650265ab5feb818cd4f1bc84e5360a28a427b66f9710\",\"dweb:/ipfs/QmaE9C7N3iUqCNoexQRpp5N4hPq9wYeXf8Sz1xJPMWUvgv\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.27+commit.40a35a09"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "contract IPoolAddressesProvider",
+              "name": "provider",
+              "type": "address"
+            },
+            {
+              "internalType": "address[]",
+              "name": "assets",
+              "type": "address[]"
+            },
+            {
+              "internalType": "address[]",
+              "name": "sources",
+              "type": "address[]"
+            },
+            {
+              "internalType": "address",
+              "name": "fallbackOracle",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "baseCurrency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "baseCurrencyUnit",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "CallerNotAssetListingOrPoolAdmin"
+        },
+        {
+          "inputs": [],
+          "type": "error",
+          "name": "InconsistentParamsLength"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "asset",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "source",
+              "type": "address",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "AssetSourceUpdated",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "baseCurrency",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "uint256",
+              "name": "baseCurrencyUnit",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "BaseCurrencySet",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "fallbackOracle",
+              "type": "address",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "FallbackOracleUpdated",
+          "anonymous": false
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "ADDRESSES_PROVIDER",
+          "outputs": [
+            {
+              "internalType": "contract IPoolAddressesProvider",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "BASE_CURRENCY",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "BASE_CURRENCY_UNIT",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "asset",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAssetPrice",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address[]",
+              "name": "assets",
+              "type": "address[]"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAssetsPrices",
+          "outputs": [
+            {
+              "internalType": "uint256[]",
+              "name": "",
+              "type": "uint256[]"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getFallbackOracle",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "asset",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getSourceOfAsset",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address[]",
+              "name": "assets",
+              "type": "address[]"
+            },
+            {
+              "internalType": "address[]",
+              "name": "sources",
+              "type": "address[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "setAssetSources"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "fallbackOracle",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "setFallbackOracle"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "constructor": {
+            "params": {
+              "assets": "The addresses of the assets",
+              "baseCurrency": "The base currency used for the price quotes. If USD is used, base currency is 0x0",
+              "baseCurrencyUnit": "The unit of the base currency",
+              "fallbackOracle": "The address of the fallback oracle to use if the data of an        aggregator is not consistent",
+              "provider": "The address of the new PoolAddressesProvider",
+              "sources": "The address of the source of each asset"
+            }
+          },
+          "getAssetPrice(address)": {
+            "params": {
+              "asset": "The address of the asset"
+            },
+            "returns": {
+              "_0": "The price of the asset"
+            }
+          },
+          "getAssetsPrices(address[])": {
+            "params": {
+              "assets": "The list of assets addresses"
+            },
+            "returns": {
+              "_0": "The prices of the given assets"
+            }
+          },
+          "getFallbackOracle()": {
+            "returns": {
+              "_0": "The address of the fallback oracle"
+            }
+          },
+          "getSourceOfAsset(address)": {
+            "params": {
+              "asset": "The address of the asset"
+            },
+            "returns": {
+              "_0": "The address of the source"
+            }
+          },
+          "setAssetSources(address[],address[])": {
+            "params": {
+              "assets": "The addresses of the assets",
+              "sources": "The addresses of the price sources"
+            }
+          },
+          "setFallbackOracle(address)": {
+            "params": {
+              "fallbackOracle": "The address of the fallback oracle"
+            }
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {
+          "ADDRESSES_PROVIDER()": {
+            "notice": "Returns the PoolAddressesProvider"
+          },
+          "BASE_CURRENCY()": {
+            "notice": "Returns the base currency address"
+          },
+          "BASE_CURRENCY_UNIT()": {
+            "notice": "Returns the base currency unit"
+          },
+          "constructor": {
+            "notice": "Constructor"
+          },
+          "getAssetPrice(address)": {
+            "notice": "Returns the asset price in the base currency"
+          },
+          "getAssetsPrices(address[])": {
+            "notice": "Returns a list of prices from a list of assets addresses"
+          },
+          "getFallbackOracle()": {
+            "notice": "Returns the address of the fallback oracle"
+          },
+          "getSourceOfAsset(address)": {
+            "notice": "Returns the address of the source for an asset address"
+          },
+          "setAssetSources(address[],address[])": {
+            "notice": "Sets or replaces price sources of assets"
+          },
+          "setFallbackOracle(address)": {
+            "notice": "Sets the fallback oracle"
+          }
+        },
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        "@openzeppelin/contracts-upgradeable/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/contracts/",
+        "@openzeppelin/contracts/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/",
+        "ds-test/=lib/forge-std/lib/ds-test/src/",
+        "erc4626-tests/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/erc4626-tests/",
+        "forge-std/=lib/forge-std/src/",
+        "halmos-cheatcodes/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/halmos-cheatcodes/src/",
+        "openzeppelin-contracts-upgradeable/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/",
+        "openzeppelin-contracts/=lib/solidity-utils/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/",
+        "solidity-utils/=lib/solidity-utils/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "none"
+      },
+      "compilationTarget": {
+        "src/contracts/misc/AaveOracle.sol": "AaveOracle"
+      },
+      "evmVersion": "shanghai",
+      "libraries": {}
+    },
+    "sources": {
+      "src/contracts/dependencies/chainlink/AggregatorInterface.sol": {
+        "keccak256": "0x67dc6f45d43e54daf13d8bdad0c9e05564cbeb527d6b29c0a2f1a53380ca381f",
+        "urls": [
+          "bzz-raw://1b4efe52963096f8bcbcf497c6180ccf25f99ab42619363454191cb92aef6d49",
+          "dweb:/ipfs/QmQbSKkLnjeCyK44hXRzJB8nSidKSCEys2kgPB34M3gjHk"
+        ],
+        "license": "MIT"
+      },
+      "src/contracts/interfaces/IACLManager.sol": {
+        "keccak256": "0x058bc8b18b4483348a4909273f2c7be9dbd08e5c7f30385c44d85fc08c3f54a9",
+        "urls": [
+          "bzz-raw://099273a63a4b5c08416b7c7538b7c1074ab230d31c0ed890b7ec00c584401d70",
+          "dweb:/ipfs/QmY7jMLXvUW75pFbAG5MZ3GwRCXi4YZ5QrYWmjeMt1gw9j"
+        ],
+        "license": "MIT"
+      },
+      "src/contracts/interfaces/IAaveOracle.sol": {
+        "keccak256": "0x21fce44dd19005ed45d193584a0bbd117a6772ef142e25da7f35ba03409b8554",
+        "urls": [
+          "bzz-raw://8ae01ec904034766b0cc948001a9c84d27f8aa602f96a5078f6c3bdb13deeece",
+          "dweb:/ipfs/Qmb8dTh6M3GUAZhGxB6ADGk4mAumHQiNvs7YNUEhaRdHzo"
+        ],
+        "license": "MIT"
+      },
+      "src/contracts/interfaces/IPoolAddressesProvider.sol": {
+        "keccak256": "0xa60921cf54e91ca8db038effeffc876089b2e72dbf01d68a10ff461770d345e5",
+        "urls": [
+          "bzz-raw://0de2fd03bf5cd6ae8718a486e5d615c67b260d0608b9fb7076888a4bfaa0e4b4",
+          "dweb:/ipfs/QmXpdmxMugyJcBFAGJEruB78bkkuTwrH9esYRaS6wiQoMs"
+        ],
+        "license": "MIT"
+      },
+      "src/contracts/interfaces/IPriceOracleGetter.sol": {
+        "keccak256": "0x7c409a9a55246dd005a4c5266b54d9ee5fe069c4ff4e6b0c267aa7ec83242e5a",
+        "urls": [
+          "bzz-raw://598be4a4d1bf411105417cdfa0698dd155442dda1463f730277aa73fcd2bfb04",
+          "dweb:/ipfs/QmcWuoqk9LMW6pawDCkwLTgPesyVzQ6whp761wht1yZdg8"
+        ],
+        "license": "MIT"
+      },
+      "src/contracts/misc/AaveOracle.sol": {
+        "keccak256": "0x19493b216ca3b6ffa2f3468c23671fedfc78800bc18cde3d09fee7693f144946",
+        "urls": [
+          "bzz-raw://b3b4b0ce6d10d5be578e1fa7251df0e654bbb6d26111a229c2803c1b5824fcc4",
+          "dweb:/ipfs/QmfJr2cQsNGaX7nbCb3uV8r3bgtZtKQs5VzmiyuaErm6xk"
+        ],
+        "license": "MIT"
+      },
+      "src/contracts/protocol/libraries/helpers/Errors.sol": {
+        "keccak256": "0x6d522a061535598e9867fdff57fce2c0f062698e1547b54b1de8bc17f6276482",
+        "urls": [
+          "bzz-raw://fd331ff3e22cc617d5c0650265ab5feb818cd4f1bc84e5360a28a427b66f9710",
+          "dweb:/ipfs/QmaE9C7N3iUqCNoexQRpp5N4hPq9wYeXf8Sz1xJPMWUvgv"
+        ],
+        "license": "MIT"
+      }
+    },
+    "version": 1
+  },
+  "id": 180
+}
