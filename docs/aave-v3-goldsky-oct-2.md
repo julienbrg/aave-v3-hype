@@ -35,7 +35,7 @@ dataSources:
     source:
       address: "0xf4438C3554d0360ECDe4358232821354e71C59e9"
       abi: Pool
-      startBlock: 0  # Replace with your actual deployment block
+      startBlock: 0 # Replace with your actual deployment block
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -78,7 +78,7 @@ dataSources:
     source:
       address: "0xd215fdfE86E9836a80E2ab2c2DF52dd0AdDaacDe"
       abi: AaveOracle
-      startBlock: 0  # Replace with your actual deployment block
+      startBlock: 0 # Replace with your actual deployment block
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -105,42 +105,42 @@ type Reserve @entity {
   symbol: String!
   name: String!
   decimals: Int!
-  
+
   # Supply metrics
   totalLiquidity: BigInt!
   availableLiquidity: BigInt!
   totalSupplied: BigInt!
-  
+
   # Borrow metrics
   totalBorrowed: BigInt!
   totalBorrowedVariable: BigInt!
-  
+
   # Rates (in Ray - 27 decimals)
   liquidityRate: BigInt!
   variableBorrowRate: BigInt!
   liquidityIndex: BigInt!
   variableBorrowIndex: BigInt!
-  
+
   # Oracle price (in USD, 8 decimals)
   priceInUSD: BigInt!
   lastUpdateTimestamp: BigInt!
-  
+
   # Collateral params
   ltv: BigInt!
   liquidationThreshold: BigInt!
   liquidationBonus: BigInt!
   reserveFactor: BigInt!
-  
+
   # Status flags
   isActive: Boolean!
   isFrozen: Boolean!
   borrowingEnabled: Boolean!
   usageAsCollateralEnabled: Boolean!
-  
+
   # aToken
   aTokenAddress: Bytes!
   variableDebtTokenAddress: Bytes!
-  
+
   # Relationships
   supplies: [SupplyEvent!]! @derivedFrom(field: "reserve")
   withdraws: [WithdrawEvent!]! @derivedFrom(field: "reserve")
@@ -152,13 +152,12 @@ type Reserve @entity {
 
 type User @entity {
   id: ID! # user address
-  
   # Aggregate metrics
   totalSuppliedUSD: BigInt!
   totalBorrowedUSD: BigInt!
   totalCollateralUSD: BigInt!
   healthFactor: BigInt!
-  
+
   # Relationships
   reserves: [UserReserve!]! @derivedFrom(field: "user")
   supplies: [SupplyEvent!]! @derivedFrom(field: "user")
@@ -172,20 +171,20 @@ type UserReserve @entity {
   id: ID! # user address + reserve address
   user: User!
   reserve: Reserve!
-  
+
   # Balances
   currentATokenBalance: BigInt!
   currentVariableDebt: BigInt!
-  
+
   # Scaled balances
   scaledATokenBalance: BigInt!
   scaledVariableDebt: BigInt!
-  
+
   # Indexes at last update
   liquidityRate: BigInt!
   variableBorrowRate: BigInt!
   lastUpdateTimestamp: BigInt!
-  
+
   # Usage as collateral
   usageAsCollateralEnabledOnUser: Boolean!
 }
@@ -258,7 +257,6 @@ type PriceUpdate @entity {
 
 type Protocol @entity {
   id: ID! # "1"
-  
   # Global metrics
   totalValueLockedUSD: BigInt!
   totalBorrowedUSD: BigInt!
@@ -283,11 +281,9 @@ import {
   Borrow,
   Repay,
   LiquidationCall,
-  ReserveDataUpdated
+  ReserveDataUpdated,
 } from "../generated/Pool/Pool";
-import {
-  AssetPriceUpdated
-} from "../generated/AaveOracle/AaveOracle";
+import { AssetPriceUpdated } from "../generated/AaveOracle/AaveOracle";
 import {
   Reserve,
   User,
@@ -298,7 +294,7 @@ import {
   RepayEvent,
   LiquidationEvent,
   PriceUpdate,
-  Protocol
+  Protocol,
 } from "../generated/schema";
 import { AToken } from "../generated/Pool/AToken";
 import { Pool } from "../generated/Pool/Pool";
@@ -312,7 +308,7 @@ const ONE_BI = BigInt.fromI32(1);
 // Helper functions
 function getOrCreateReserve(asset: Address): Reserve {
   let reserve = Reserve.load(asset.toHexString());
-  
+
   if (reserve == null) {
     reserve = new Reserve(asset.toHexString());
     reserve.symbol = "";
@@ -341,13 +337,13 @@ function getOrCreateReserve(asset: Address): Reserve {
     reserve.variableDebtTokenAddress = Bytes.fromHexString(ZERO_ADDRESS);
     reserve.save();
   }
-  
+
   return reserve;
 }
 
 function getOrCreateUser(address: Address): User {
   let user = User.load(address.toHexString());
-  
+
   if (user == null) {
     user = new User(address.toHexString());
     user.totalSuppliedUSD = ZERO_BI;
@@ -355,20 +351,23 @@ function getOrCreateUser(address: Address): User {
     user.totalCollateralUSD = ZERO_BI;
     user.healthFactor = ZERO_BI;
     user.save();
-    
+
     // Update protocol user count
     let protocol = getOrCreateProtocol();
     protocol.totalUsers = protocol.totalUsers + 1;
     protocol.save();
   }
-  
+
   return user;
 }
 
-function getOrCreateUserReserve(userAddress: Address, reserveAddress: Address): UserReserve {
+function getOrCreateUserReserve(
+  userAddress: Address,
+  reserveAddress: Address
+): UserReserve {
   let id = userAddress.toHexString() + "-" + reserveAddress.toHexString();
   let userReserve = UserReserve.load(id);
-  
+
   if (userReserve == null) {
     userReserve = new UserReserve(id);
     userReserve.user = userAddress.toHexString();
@@ -383,13 +382,13 @@ function getOrCreateUserReserve(userAddress: Address, reserveAddress: Address): 
     userReserve.usageAsCollateralEnabledOnUser = false;
     userReserve.save();
   }
-  
+
   return userReserve;
 }
 
 function getOrCreateProtocol(): Protocol {
   let protocol = Protocol.load("1");
-  
+
   if (protocol == null) {
     protocol = new Protocol("1");
     protocol.totalValueLockedUSD = ZERO_BI;
@@ -402,7 +401,7 @@ function getOrCreateProtocol(): Protocol {
     protocol.totalLiquidations = 0;
     protocol.save();
   }
-  
+
   return protocol;
 }
 
@@ -411,10 +410,14 @@ function getOrCreateProtocol(): Protocol {
 export function handleSupply(event: Supply): void {
   let reserve = getOrCreateReserve(event.params.reserve);
   let user = getOrCreateUser(event.params.user);
-  let userReserve = getOrCreateUserReserve(event.params.user, event.params.reserve);
-  
+  let userReserve = getOrCreateUserReserve(
+    event.params.user,
+    event.params.reserve
+  );
+
   // Create supply event
-  let id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
+  let id =
+    event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let supply = new SupplyEvent(id);
   supply.user = user.id;
   supply.reserve = reserve.id;
@@ -424,7 +427,7 @@ export function handleSupply(event: Supply): void {
   supply.timestamp = event.block.timestamp;
   supply.txHash = event.transaction.hash;
   supply.save();
-  
+
   // Update user reserve balance
   let aTokenContract = AToken.bind(Address.fromBytes(reserve.aTokenAddress));
   let balanceResult = aTokenContract.try_balanceOf(event.params.user);
@@ -433,7 +436,7 @@ export function handleSupply(event: Supply): void {
   }
   userReserve.lastUpdateTimestamp = event.block.timestamp;
   userReserve.save();
-  
+
   // Update protocol stats
   let protocol = getOrCreateProtocol();
   protocol.totalSupplies = protocol.totalSupplies + 1;
@@ -443,10 +446,14 @@ export function handleSupply(event: Supply): void {
 export function handleWithdraw(event: Withdraw): void {
   let reserve = getOrCreateReserve(event.params.reserve);
   let user = getOrCreateUser(event.params.user);
-  let userReserve = getOrCreateUserReserve(event.params.user, event.params.reserve);
-  
+  let userReserve = getOrCreateUserReserve(
+    event.params.user,
+    event.params.reserve
+  );
+
   // Create withdraw event
-  let id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
+  let id =
+    event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let withdraw = new WithdrawEvent(id);
   withdraw.user = user.id;
   withdraw.reserve = reserve.id;
@@ -455,7 +462,7 @@ export function handleWithdraw(event: Withdraw): void {
   withdraw.timestamp = event.block.timestamp;
   withdraw.txHash = event.transaction.hash;
   withdraw.save();
-  
+
   // Update user reserve balance
   let aTokenContract = AToken.bind(Address.fromBytes(reserve.aTokenAddress));
   let balanceResult = aTokenContract.try_balanceOf(event.params.user);
@@ -464,7 +471,7 @@ export function handleWithdraw(event: Withdraw): void {
   }
   userReserve.lastUpdateTimestamp = event.block.timestamp;
   userReserve.save();
-  
+
   // Update protocol stats
   let protocol = getOrCreateProtocol();
   protocol.totalWithdraws = protocol.totalWithdraws + 1;
@@ -474,10 +481,14 @@ export function handleWithdraw(event: Withdraw): void {
 export function handleBorrow(event: Borrow): void {
   let reserve = getOrCreateReserve(event.params.reserve);
   let user = getOrCreateUser(event.params.user);
-  let userReserve = getOrCreateUserReserve(event.params.user, event.params.reserve);
-  
+  let userReserve = getOrCreateUserReserve(
+    event.params.user,
+    event.params.reserve
+  );
+
   // Create borrow event
-  let id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
+  let id =
+    event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let borrow = new BorrowEvent(id);
   borrow.user = user.id;
   borrow.reserve = reserve.id;
@@ -489,12 +500,14 @@ export function handleBorrow(event: Borrow): void {
   borrow.timestamp = event.block.timestamp;
   borrow.txHash = event.transaction.hash;
   borrow.save();
-  
+
   // Update user reserve debt
-  userReserve.currentVariableDebt = userReserve.currentVariableDebt.plus(event.params.amount);
+  userReserve.currentVariableDebt = userReserve.currentVariableDebt.plus(
+    event.params.amount
+  );
   userReserve.lastUpdateTimestamp = event.block.timestamp;
   userReserve.save();
-  
+
   // Update protocol stats
   let protocol = getOrCreateProtocol();
   protocol.totalBorrows = protocol.totalBorrows + 1;
@@ -504,10 +517,14 @@ export function handleBorrow(event: Borrow): void {
 export function handleRepay(event: Repay): void {
   let reserve = getOrCreateReserve(event.params.reserve);
   let user = getOrCreateUser(event.params.user);
-  let userReserve = getOrCreateUserReserve(event.params.user, event.params.reserve);
-  
+  let userReserve = getOrCreateUserReserve(
+    event.params.user,
+    event.params.reserve
+  );
+
   // Create repay event
-  let id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
+  let id =
+    event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let repay = new RepayEvent(id);
   repay.user = user.id;
   repay.reserve = reserve.id;
@@ -517,16 +534,18 @@ export function handleRepay(event: Repay): void {
   repay.timestamp = event.block.timestamp;
   repay.txHash = event.transaction.hash;
   repay.save();
-  
+
   // Update user reserve debt
   if (userReserve.currentVariableDebt.gt(event.params.amount)) {
-    userReserve.currentVariableDebt = userReserve.currentVariableDebt.minus(event.params.amount);
+    userReserve.currentVariableDebt = userReserve.currentVariableDebt.minus(
+      event.params.amount
+    );
   } else {
     userReserve.currentVariableDebt = ZERO_BI;
   }
   userReserve.lastUpdateTimestamp = event.block.timestamp;
   userReserve.save();
-  
+
   // Update protocol stats
   let protocol = getOrCreateProtocol();
   protocol.totalRepays = protocol.totalRepays + 1;
@@ -537,21 +556,23 @@ export function handleLiquidationCall(event: LiquidationCall): void {
   let collateralReserve = getOrCreateReserve(event.params.collateralAsset);
   let debtReserve = getOrCreateReserve(event.params.debtAsset);
   let user = getOrCreateUser(event.params.user);
-  
+
   // Create liquidation event
-  let id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
+  let id =
+    event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let liquidation = new LiquidationEvent(id);
   liquidation.user = user.id;
   liquidation.collateralReserve = collateralReserve.id;
   liquidation.debtReserve = debtReserve.id;
   liquidation.debtToCover = event.params.debtToCover;
-  liquidation.liquidatedCollateralAmount = event.params.liquidatedCollateralAmount;
+  liquidation.liquidatedCollateralAmount =
+    event.params.liquidatedCollateralAmount;
   liquidation.liquidator = event.params.liquidator;
   liquidation.receiveAToken = event.params.receiveAToken;
   liquidation.timestamp = event.block.timestamp;
   liquidation.txHash = event.transaction.hash;
   liquidation.save();
-  
+
   // Update protocol stats
   let protocol = getOrCreateProtocol();
   protocol.totalLiquidations = protocol.totalLiquidations + 1;
@@ -560,7 +581,7 @@ export function handleLiquidationCall(event: LiquidationCall): void {
 
 export function handleReserveDataUpdated(event: ReserveDataUpdated): void {
   let reserve = getOrCreateReserve(event.params.reserve);
-  
+
   reserve.liquidityRate = event.params.liquidityRate;
   reserve.variableBorrowRate = event.params.variableBorrowRate;
   reserve.liquidityIndex = event.params.liquidityIndex;
@@ -571,13 +592,14 @@ export function handleReserveDataUpdated(event: ReserveDataUpdated): void {
 
 export function handleAssetPriceUpdated(event: AssetPriceUpdated): void {
   let reserve = getOrCreateReserve(event.params.asset);
-  
+
   reserve.priceInUSD = event.params.price;
   reserve.lastUpdateTimestamp = event.block.timestamp;
   reserve.save();
-  
+
   // Create price update event
-  let id = event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
+  let id =
+    event.transaction.hash.toHexString() + "-" + event.logIndex.toString();
   let priceUpdate = new PriceUpdate(id);
   priceUpdate.asset = event.params.asset;
   priceUpdate.price = event.params.price;
@@ -635,32 +657,38 @@ jq '.abi' out/AaveOracle.sol/AaveOracle.json > aave-v3-subgraph/abis/AaveOracle.
 ## 6. Deployment Steps
 
 ### Install Goldsky CLI
+
 ```bash
 npm install -g @goldsky/cli
 ```
 
 ### Login to Goldsky
+
 ```bash
 goldsky login
 ```
 
 ### Install dependencies
+
 ```bash
 cd aave-v3-subgraph
 npm install
 ```
 
 ### Generate code from schema
+
 ```bash
 npm run codegen
 ```
 
 ### Build the subgraph
+
 ```bash
 npm run build
 ```
 
 ### Deploy to Goldsky
+
 ```bash
 goldsky subgraph deploy aave-v3-hyperevm/v1.0.0 --path .
 ```
@@ -670,6 +698,7 @@ goldsky subgraph deploy aave-v3-hyperevm/v1.0.0 --path .
 ## 7. Important Notes
 
 ### Find Your Deployment Block
+
 You need to replace `startBlock: 0` in `subgraph.yaml` with the actual block where you deployed your contracts. You can find this by:
 
 ```bash
@@ -679,7 +708,9 @@ cast block-number --rpc-url https://api.hyperliquid-testnet.xyz/evm
 Or check the transaction hash from your deployment and get the block number.
 
 ### Network Configuration
+
 If HyperEVM testnet is not yet supported by Goldsky, you may need to:
+
 1. Contact Goldsky support to add HyperEVM testnet
 2. Or deploy to Goldsky's "Instant Subgraphs" feature
 3. Or use The Graph's hosted service if they support custom networks

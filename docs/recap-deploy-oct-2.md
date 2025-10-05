@@ -3,6 +3,7 @@
 ## Adresses des contrats déployés
 
 ### Infrastructure Core Aave
+
 ```
 PoolAddressesProvider:     0x3097BDC98DCCC8B8b56E478972a645705E756785
 ACLManager:                0x96FB5950755e25F4e1CBFA994698345738e705a2
@@ -16,12 +17,14 @@ DefaultInterestRateStrategy: 0xDbA07E77C393662e0628a25642D511e60ca9f90A
 ```
 
 ### Token Implementations
+
 ```
 AToken Implementation:           0x2DE2C76e35c2202eAf7e98db214618caC3eda1a3
 VariableDebtToken Implementation: 0xcDE6e1df7751Dc95B55014f2b678b0F563cc42dD
 ```
 
 ### Assets & Tokens
+
 ```
 Mock USDC:                 0xDF1B2c6007D810FaCBD84686C6e27CE03C2C4056
 aHypUSDC (aToken Proxy):   0x052650F4173d7f1252E82b94ccD0Ea0a21Bb6a98
@@ -30,6 +33,7 @@ MockPriceOracle (USDC):    [Déployé lors de ConfigureUSDC]
 ```
 
 ### Votre adresse
+
 ```
 Deployer/User: 0x9a6586c563D56899d2d84a6b22729870126f62Fb
 ```
@@ -39,10 +43,12 @@ Deployer/User: 0x9a6586c563D56899d2d84a6b22729870126f62Fb
 ## Étapes accomplies
 
 ### 1. Setup initial
+
 - Activé big blocks sur HyperEVM pour le déploiement
 - Obtenu HYPE pour le gas via Arbitrum bridge
 
 ### 2. Déploiement infrastructure (DeployHyperEVM.s.sol)
+
 - Déployé PoolAddressesProvider
 - Configuré ACLManager
 - Déployé Pool + PoolConfigurator (avec proxies)
@@ -51,14 +57,17 @@ Deployer/User: 0x9a6586c563D56899d2d84a6b22729870126f62Fb
 - Accordé les rôles admin
 
 ### 3. Déploiement Mock USDC (DeployMockUSDC.s.sol)
+
 - Créé un ERC20 avec 6 décimales (changé à 18 finalement)
 - Minté 1,000,000 USDC pour tests
 
 ### 4. Déploiement Token Implementations (DeployTokenImplementations.s.sol)
+
 - Déployé ATokenInstance (pour représenter les dépôts)
 - Déployé VariableDebtTokenInstance (pour représenter les emprunts)
 
 ### 5. Configuration USDC dans Aave (ConfigureUSDC.s.sol)
+
 - Initialisé la réserve USDC avec:
   - Implémentations aToken et debtToken
   - Paramètres de taux: 90% utilisation optimale, 0% base rate, 4% slope1, 60% slope2
@@ -69,6 +78,7 @@ Deployer/User: 0x9a6586c563D56899d2d84a6b22729870126f62Fb
 - Déployé et configuré oracle de prix ($1.00)
 
 ### 6. Test Supply (SupplyUSDC.s.sol)
+
 - Approuvé 1000 USDC au Pool
 - Déposé 1000 USDC
 - Reçu 1000 aHypUSDC en retour
@@ -78,17 +88,20 @@ Deployer/User: 0x9a6586c563D56899d2d84a6b22729870126f62Fb
 ## Configuration USDC finale
 
 **Paramètres de collatéral:**
+
 - LTV: 80% (peut emprunter jusqu'à 80% de la valeur déposée)
 - Liquidation Threshold: 85% (liquidé si dette > 85% du collatéral)
 - Liquidation Bonus: 5% (liquidateur reçoit 5% de bonus)
 
 **Paramètres de taux d'intérêt:**
+
 - Utilisation optimale: 90%
 - Taux de base: 0%
 - Pente 1 (0-90%): 4%
 - Pente 2 (90-100%): 60%
 
 **État actuel:**
+
 - Vous avez déposé: 1000 USDC
 - Vous possédez: 1000 aHypUSDC (génère des intérêts)
 - Prix oracle: $1.00
